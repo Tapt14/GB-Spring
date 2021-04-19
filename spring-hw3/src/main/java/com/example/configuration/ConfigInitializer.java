@@ -7,27 +7,27 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 
 public class ConfigInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return null;
-	}
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return null;
+    }
 
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {AppConfig.class};
-	}
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[]{AppConfig.class};
+    }
 
-	@Override
-	protected String[] getServletMappings() {
-		return new String[] {"/"};
-	}
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/"};
+    }
 
-	@Override
-	protected Filter[] getServletFilters() {
-		CharacterEncodingFilter filter = new CharacterEncodingFilter();
-		filter.setEncoding("UTF-8");
-		filter.setForceEncoding(true);
-		HiddenHttpMethodFilter httpMethodFilter = new HiddenHttpMethodFilter();
-		return new Filter[] {filter, httpMethodFilter};
-	}
+    @Override
+    protected Filter[] getServletFilters() {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        HiddenHttpMethodFilter httpMethodFilter = new HiddenHttpMethodFilter();
+        return new Filter[]{filter, httpMethodFilter};
+    }
 }
