@@ -32,19 +32,23 @@ public class ProductController {
 
 	@PostMapping("/product_update")
 	public String updateProduct(Product product) {
-		productRepository.update(product);
+		if (product.getId() == null) {
+			productRepository.add(product);
+		} else {
+			productRepository.update(product);
+		}
 		return "redirect:/product";
 	}
 
 	@GetMapping("/new")
 	public String newProduct(Model model) {
-		// TODO: 09.04.2021 дописать добавление продукта
+		model.addAttribute(new Product());
 		return "product_views/product_form";
 	}
 
-	@GetMapping("/delete")
-	public String removeProduct(Model model) {
-		// TODO: 09.04.2021 дописать удаление продукта
-		return "product_views/index";
+	@GetMapping("/delete/{id}")
+	public String removeProduct(@PathVariable(value = "id") Long id) {
+		productRepository.remove(id);
+		return "redirect:/product";
 	}
 }
