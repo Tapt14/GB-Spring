@@ -1,28 +1,32 @@
 package Server;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Server {
-    private final int port;
-    private AuthService authService;
-    private List<ClientHandler> clients = new ArrayList<>();
 
-    public Server(int port) {
-        this.port = port;
-        start();
+    @Value("${server.port}")
+    private int port;
+    private BaseAuthService authService;
+    private List<ClientHandler> clients;
+
+    @Autowired
+    public void setAuthService(BaseAuthService authService) {
+        this.authService = authService;
     }
 
-    public AuthService getAuthService() {
-        return authService;
-    }
-
-    private void start() {
+    public void start() {
         try (ServerSocket server = new ServerSocket(this.port)) {
-            authService = new BaseAuthService();
+
+            clients = new ArrayList<>();
             authService.start();
 
             while(true) {
@@ -30,7 +34,7 @@ public class Server {
                 System.out.println("Server.Server is waiting for clients...");
                 Socket socket = server.accept();
                 System.out.println(String.format("Client connected: %s", socket.toString()));
-                new ClientHandler(this, socket);
+                new ClientHandler().initialize(this, socket);
             }
         } catch (IOException e) {
             System.out.println("Something went wrong during server startup");
@@ -80,4 +84,8 @@ public class Server {
         System.out.println("There is no user with this nickname...");
     }
 
+
+    public AuthService getAuthService() {
+        return authService;
+    }
 }

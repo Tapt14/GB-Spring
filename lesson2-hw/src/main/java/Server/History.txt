@@ -15,3 +15,5 @@ nick1: asdasd
 nick1: ssd
 nick1: dfd
 nick1: hi
+nick1: hi
+nick1: hi

@@ -1,10 +1,13 @@
 package Server;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class BaseAuthService implements AuthService {
 
     @Override
