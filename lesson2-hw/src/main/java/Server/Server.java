@@ -9,11 +9,10 @@ import java.util.List;
 public class Server {
     private final int port;
     private AuthService authService;
-    private List<ClientHandler> clients;
+    private List<ClientHandler> clients = new ArrayList<>();
 
     public Server(int port) {
         this.port = port;
-        this.clients = new ArrayList<>();
         start();
     }
 
