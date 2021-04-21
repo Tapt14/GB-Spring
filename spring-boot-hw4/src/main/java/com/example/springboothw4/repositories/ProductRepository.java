@@ -13,16 +13,15 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class ProductRepository {
-
     private static AtomicLong identity = new AtomicLong(0);
 
     private final Map<Long, Product> identityMap = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
-        add(new Product(null, "MacBook", "Ultra low and Great Power", new BigDecimal(3000)));
-        add(new Product(null, "iPhone", "The most expensive phone by credit", new BigDecimal(1000)));
-        add(new Product(null, "iPad", "More size - more cost", new BigDecimal(2000)));
+        add(new Product(null, "MacBook", "Ultra low and Great Power", 3000));
+        add(new Product(null, "iPhone", "The most expensive phone by credit", 1000));
+        add(new Product(null, "iPad", "More size - more cost", 2000));
     }
 
     public void add(Product product) {

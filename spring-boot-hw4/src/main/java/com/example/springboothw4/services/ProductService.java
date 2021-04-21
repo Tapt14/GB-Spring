@@ -2,39 +2,40 @@ package com.example.springboothw4.services;
 
 
 import com.example.springboothw4.entities.Product;
-import com.example.springboothw4.repositories.ProductRepository;
+import com.example.springboothw4.repositories.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class ProductService {
 
-	private ProductRepository productRepository;
+    private ProductDao productDao;
 
-	@Autowired
-	public void setProductRepository(ProductRepository productRepository) {
-		this.productRepository = productRepository;
-	}
+    @Autowired
+    public void setProductRepository(ProductDao productDao) {
+        this.productDao = productDao;
+    }
 
-	public List<Product> getAllProduct() {
-		return productRepository.findAll();
-	}
+    public List<Product> getAllProduct() {
+        return productDao.findAllProduct();
+    }
 
-	public Product getById(Long id) {
-		return productRepository.findById(id);
-	}
+    public Product getById(Long id) {
+        return productDao.findById(id);
+    }
 
 	public void remove(Long id) {
-		productRepository.remove(id);
+		productDao.deleteProduct(id);
 	}
 
-	public void add(Product product) {
-		productRepository.add(product);
-	}
+    public void add(Product product) {
+        productDao.addProduct(product);
+    }
 
-	public void update(Product product) {
-		productRepository.update(product);
-	}
+    public void update(Product product) {
+        productDao.update(product);
+    }
 }
