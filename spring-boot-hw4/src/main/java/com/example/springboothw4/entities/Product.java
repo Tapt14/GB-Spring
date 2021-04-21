@@ -1,17 +1,15 @@
 package com.example.springboothw4.entities;
 
-import java.math.BigDecimal;
-
 public class Product {
     private Long id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private int price;
 
     public Product() {
     }
 
-    public Product(Long id, String name, String description, BigDecimal price) {
+    public Product(Long id, String name, String description, int price) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -42,11 +40,11 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }
