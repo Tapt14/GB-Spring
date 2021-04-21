@@ -1,8 +1,13 @@
 package Server;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 public class ServerApplication {
     public static void main(String[] args) {
-        //System.out.println(new Server.Server.ChatHistory().loadLastOneHundredLines());
-        new Server(8564);
+
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ServerConfig.class);
+        Server server = context.getBean("server", Server.class);
+        server.start();
+        context.close();
     }
 }

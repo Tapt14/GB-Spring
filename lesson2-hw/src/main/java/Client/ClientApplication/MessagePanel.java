@@ -1,8 +1,11 @@
 package Client.ClientApplication;
 
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.awt.*;
 
+@Component
 public class MessagePanel extends JPanel {
 
     private final JTextArea sendTextArea = new JTextArea();

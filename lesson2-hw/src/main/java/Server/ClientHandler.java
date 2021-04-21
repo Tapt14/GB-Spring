@@ -6,23 +6,18 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ClientHandler {
-    private final Server server;
-    private final Socket socket;
-    private final DataInputStream in;
-    private final DataOutputStream out;
+    private Server server;
+    private Socket socket;
+    private DataInputStream in;
+    private DataOutputStream out;
     private String name;
-    private final ChatHistory chatHistory = new ChatHistory();
+    private ChatHistory chatHistory;
 
-    public String getName() {
-        return name;
-    }
-
-    public ClientHandler(Server server, Socket socket) {
-        this.server = server;
-        this.socket = socket;
-        this.name = "";
-
+    public void initialize (Server server, Socket socket) {
         try {
+            this.chatHistory = new ChatHistory();
+            this.server = server;
+            this.socket = socket;
             this.in = new DataInputStream(socket.getInputStream());
             this.out = new DataOutputStream(socket.getOutputStream());
             new Thread(() -> {
@@ -39,6 +34,7 @@ public class ClientHandler {
             throw new RuntimeException("Error occurred during client handler initialization");
         }
     }
+
 
     public void doAuth() throws IOException {
         while (true) {
@@ -76,7 +72,7 @@ public class ClientHandler {
                 System.out.println(name + ": " + msg);
                 if (msg.startsWith("/")) {
                     if (msg.equals("/end")) {
-                        break;
+                        closeConnection();
                     } else if (msg.startsWith("/w")) {
                         String[] parts = msg.split("\\s", 3);
                         String userNick = parts[1];
@@ -111,5 +107,9 @@ public class ClientHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -1,5 +1,8 @@
 package Client.ClientApplication;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,23 +12,32 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+@Component
 public class Messenger extends JFrame {
 
-    private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
     private String nick;
-    private final MessagePanel messagePanel = new MessagePanel();
-    private final SendMessagePanel sendMessagePanel = new SendMessagePanel();
+    private MessagePanel messagePanel;
+    private SendMessagePanel sendMessagePanel;
+    @Autowired
+    public void setMessagePanel(MessagePanel messagePanel) {
+        this.messagePanel = messagePanel;
+    }
 
-    public Messenger() {
-       connectToServer();
-       getMessenger();
+    @Autowired
+    public void setSendMessagePanel(SendMessagePanel sendMessagePanel) {
+        this.sendMessagePanel = sendMessagePanel;
+    }
+
+    public void run() {
+        connectToServer();
+        getMessenger();
     }
 
     public void connectToServer() {
         try {
-            socket = new Socket("localhost", 8564);
+            Socket socket = new Socket("localhost", 8564);
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
@@ -39,12 +51,8 @@ public class Messenger extends JFrame {
                     String str = in.readUTF();
                     if (str.startsWith("/authok ")) {
                         nick = str.split("\\s")[1];
-
-                        //nickField.setText(nick);
                     }
                     messagePanel.getSendTextArea().append(str + "\n");
-                    //chatArea.append(str);
-                    //chatArea.append("\n");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -80,6 +88,10 @@ public class Messenger extends JFrame {
                 ioException.printStackTrace();
             }
         }
+
     }
 
+    public String getNick() {
+        return nick;
+    }
 }
