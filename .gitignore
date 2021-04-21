@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+<<<<<<< Updated upstream
 ### STS ###
 .apt_generated
 .classpath
@@ -31,3 +32,10 @@ build/
 
 ### VS Code ###
 .vscode/
+=======
+.DS_Store
+
+spring-hw3/.idea/
+
+spring-hw3/target/
+>>>>>>> Stashed changes
