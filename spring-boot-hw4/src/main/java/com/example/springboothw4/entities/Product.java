@@ -1,9 +1,26 @@
 package com.example.springboothw4.entities;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+
+@Component
+@Entity
+@Table(name = "products")
 public class Product {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "title")
     private String name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "price")
     private int price;
 
     public Product() {
@@ -47,4 +64,16 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
+    }
+
+
 }

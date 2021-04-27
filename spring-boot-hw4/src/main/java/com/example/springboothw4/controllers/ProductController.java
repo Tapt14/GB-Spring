@@ -2,7 +2,7 @@ package com.example.springboothw4.controllers;
 
 
 import com.example.springboothw4.entities.Product;
-import com.example.springboothw4.repositories.ProductRepository;
+import com.example.springboothw4.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,28 +15,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/product")
 public class ProductController {
 
+    private ProductService productService;
+
     @Autowired
-    private ProductRepository productRepository;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping
     public String indexPage(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+        model.addAttribute("products", productService.getAllProduct());
         return "product_views/index";
     }
 
     @GetMapping("/{id}")
     public String editProduct(@PathVariable(value = "id") Long id,
                               Model model) {
-        model.addAttribute("product", productRepository.findById(id));
+        model.addAttribute("product", productService.getById(id));
         return "product_views/product_form";
     }
 
     @PostMapping("/product_update")
     public String updateProduct(Product product) {
         if (product.getId() == null) {
-            productRepository.add(product);
+            productService.add(product);
         } else {
-            productRepository.update(product);
+           productService.update(product);
         }
         return "redirect:/product";
     }
@@ -49,7 +53,7 @@ public class ProductController {
 
     @GetMapping("/delete/{id}")
     public String removeProduct(@PathVariable(value = "id") Long id) {
-        productRepository.remove(id);
+      productService.remove(id);
         return "redirect:/product";
     }
 }
