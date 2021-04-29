@@ -38,4 +38,11 @@ public class ProductService {
     public void update(Product product) {
         productDao.update(product);
     }
+
+    @Override
+    public String toString() {
+        return "ProductService{" +
+                "productDao=" + productDao +
+                '}';
+    }
 }
