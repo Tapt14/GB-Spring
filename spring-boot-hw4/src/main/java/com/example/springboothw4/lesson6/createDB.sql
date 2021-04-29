@@ -1,5 +1,7 @@
 BEGIN;
 
+DROP TABLE IF EXISTS costumers_products CASCADE;
+
 DROP TABLE IF EXISTS costumers CASCADE;
 CREATE TABLE costumers (
     id serial PRIMARY KEY,
@@ -20,23 +22,4 @@ VALUES ('Ipad', 1250.00),
        ('AirPods', 890.00),
        ('MacBookPro', 2500);
 
-
-DROP TABLE IF EXISTS costumers_products CASCADE;
-
-CREATE TABLE costumers_products (
-    costumer_id int REFERENCES costumers (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    product_id int REFERENCES products (id) ON UPDATE CASCADE,
-    CONSTRAINT costumers_products_pkey PRIMARY KEY (costumer_id, product_id)
-                                );
-
-INSERT INTO costumers_products(costumer_id, product_id)
-VALUES (1, 1),
-       (1, 2),
-       (1, 3),
-       (2, 3),
-       (2, 4),
-       (3, 1),
-       (3, 2),
-       (3, 3),
-       (3, 4);
 COMMIT;

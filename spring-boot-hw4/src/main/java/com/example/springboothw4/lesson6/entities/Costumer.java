@@ -1,5 +1,6 @@
 package com.example.springboothw4.lesson6.entities;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -13,11 +14,12 @@ public class Costumer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    int id;
 
     @Column(name = "name")
     private String name;
 
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "costumers_products",
@@ -29,12 +31,13 @@ public class Costumer {
     public Costumer() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public Costumer setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
@@ -58,7 +61,6 @@ public class Costumer {
         return "Costumer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", books=" + products +
                 '}';
     }
 }
