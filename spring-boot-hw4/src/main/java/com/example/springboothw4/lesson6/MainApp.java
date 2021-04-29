@@ -1,6 +1,7 @@
 package com.example.springboothw4.lesson6;
 
 import com.example.springboothw4.lesson6.entities.Costumer;
+import com.example.springboothw4.lesson6.entities.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -22,8 +23,9 @@ public class MainApp {
 
     private static void prepareData() {
         SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
+                .configure(("hibernate.cfg.xml"))
                 .buildSessionFactory();
+
 
         Session session = null;
 
@@ -43,27 +45,21 @@ public class MainApp {
         }
     }
 
-    private static void getProductByIdCostumer(long id) {
+    private static void getProductByIdCostumer(int id) {
 
-        SessionFactory factory = new Configuration()
+        try (SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .buildSessionFactory();
-
-        Session session = null;
-
-        try {
-            session = factory.getCurrentSession();
+             Session session = factory.getCurrentSession()) {
             session.beginTransaction();
             Costumer costumer = session.get(Costumer.class, id);
-            System.out.println(costumer.getProducts());
-            session.getTransaction().commit();
+            for (Product p: costumer.getProducts()) {
+                System.out.println(p.getTitle());
+            }
+            System.out.println(costumer);
+                    session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            factory.close();
-            if (session != null) {
-                session.close();
-            }
         }
     }
 
