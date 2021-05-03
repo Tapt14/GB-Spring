@@ -14,7 +14,7 @@ public class Costumer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    Long id;
 
     @Column(name = "name")
     private String name;
@@ -31,11 +31,11 @@ public class Costumer {
     public Costumer() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public Costumer setId(int id) {
+    public Costumer setId(Long id) {
         this.id = id;
         return this;
     }
@@ -58,9 +58,8 @@ public class Costumer {
 
     @Override
     public String toString() {
-        return "Costumer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return "Costumer" +
+                "Id=" + id +
+                ", name='" + name + '\'';
     }
 }
