@@ -3,6 +3,7 @@ package com.example.springboothw4.entities;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Component
 @Entity
@@ -15,20 +16,20 @@ public class Product {
     private Long id;
 
     @Column(name = "title")
-    private String name;
+    private String title;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "price")
-    private int price;
+    private BigDecimal price;
 
     public Product() {
     }
 
-    public Product(Long id, String name, String description, int price) {
+    public Product(Long id, String title, String description, BigDecimal price) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.price = price;
     }
@@ -41,12 +42,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     public String getDescription() {
@@ -57,11 +58,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -69,7 +70,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 '}';

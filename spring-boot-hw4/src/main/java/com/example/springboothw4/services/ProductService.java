@@ -2,47 +2,67 @@ package com.example.springboothw4.services;
 
 
 import com.example.springboothw4.entities.Product;
-import com.example.springboothw4.repositories.ProductDao;
+import com.example.springboothw4.repositories.ProductRepository;
+import com.example.springboothw4.repositories.specifications.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Optional;
 
 
 @Service
 public class ProductService {
 
-    private ProductDao productDao;
+    private ProductRepository productRepository;
 
     @Autowired
-    public void setProductRepository(ProductDao productDao) {
-        this.productDao = productDao;
+    public ProductService setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+        return this;
     }
 
-    public List<Product> getAllProduct() {
-        return productDao.findAllProduct();
+    @Transactional
+    public Optional<Product> getById(Long id) {
+        return productRepository.findById(id);
     }
 
-    public Product getById(Long id) {
-        return productDao.findById(id);
+    @Transactional
+    public void remove(Long id) {
+        productRepository.deleteById(id);
     }
 
-	public void remove(Long id) {
-		productDao.deleteProduct(id);
-	}
-
-    public void add(Product product) {
-        productDao.addProduct(product);
+    @Transactional
+    public void addOrUpdate(Product product) {
+        productRepository.save(product);
     }
 
-    public void update(Product product) {
-        productDao.update(product);
+    @Transactional
+    public Page<Product> getByParams(Optional<String> nameFilter,
+                                     Optional<BigDecimal> min,
+                                     Optional<BigDecimal> max,
+                                     Optional<Integer> page,
+                                     Optional<Integer> size) {
+
+        Specification<Product> specification = Specification.where(null);
+        if (nameFilter.isPresent()) {
+            specification = specification.and(ProductSpecification.titleLike(nameFilter.get()));
+        }
+
+        if (min.isPresent()) {
+            specification = specification.and(ProductSpecification.greatOrEqual(min.get()));
+        }
+
+        if (max.isPresent()) {
+            specification = specification.and(ProductSpecification.lessOrEqual(max.get()));
+        }
+
+        return productRepository.findAll(specification,
+                PageRequest.of(page.orElse(1) - 1, size.orElse(5)));
     }
 
-    @Override
-    public String toString() {
-        return "ProductService{" +
-                "productDao=" + productDao +
-                '}';
-    }
 }
