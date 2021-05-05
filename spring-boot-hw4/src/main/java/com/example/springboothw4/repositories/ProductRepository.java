@@ -1,47 +1,10 @@
 package com.example.springboothw4.repositories;
 
 import com.example.springboothw4.entities.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
-
 @Repository
-public class ProductRepository {
-    private static AtomicLong identity = new AtomicLong(0);
-
-    private final Map<Long, Product> identityMap = new ConcurrentHashMap<>();
-
-    @PostConstruct
-    public void init() {
-        add(new Product(null, "MacBook", "Ultra low and Great Power", 3000));
-        add(new Product(null, "iPhone", "The most expensive phone by credit", 1000));
-        add(new Product(null, "iPad", "More size - more cost", 2000));
-    }
-
-    public void add(Product product) {
-        product.setId(identity.incrementAndGet());
-        identityMap.put(product.getId(), product);
-    }
-
-    public void update(Product product) {
-        identityMap.put(product.getId(), product);
-    }
-
-    public void remove(long id) {
-        identityMap.remove(id);
-    }
-
-    public Product findById(long id) {
-        return identityMap.get(id);
-    }
-
-    public List<Product> findAll() {
-        return new ArrayList<>(identityMap.values());
-    }
+public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 }

@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/products</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/products?currentSchema=products</property>
         <property name="connection.username">postgres</property>
         <property name="connection.password">postgre</property>
         <property name="connection.pool_size">4</property>
@@ -15,7 +15,6 @@
         <property name="current_session_context_class">thread</property>
         <property name="hibernate.connection.isolation">4</property>
 
-        <mapping class="com.example.springboothw4.lesson6.entities.Product"/>
-        <mapping class="com.example.springboothw4.lesson6.entities.Costumer"/>
+        <mapping class="com.example.springboothw4.entities.Product"/>
     </session-factory>
 </hibernate-configuration>

@@ -4,12 +4,11 @@ import com.example.springboothw4.entities.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.OrderBy;
 import java.util.List;
 
-@Component
+@Repository
 public class ProductDao {
 
     private final SessionFactory sessionFactory;
