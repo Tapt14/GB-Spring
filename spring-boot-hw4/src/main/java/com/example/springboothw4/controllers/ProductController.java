@@ -4,6 +4,7 @@ package com.example.springboothw4.controllers;
 import com.example.springboothw4.entities.Product;
 import com.example.springboothw4.services.ProductService;
 import com.example.springboothw4.services.exceptions.NotFoundException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-@Controller
-@RequestMapping("/product")
+//@Controller
+//@RequestMapping("/product")
 public class ProductController {
 
     private ProductService productService;

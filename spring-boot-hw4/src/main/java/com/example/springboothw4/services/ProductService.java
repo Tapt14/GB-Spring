@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 
-@Service
+//@Service
 public class ProductService {
 
     private ProductRepository productRepository;
