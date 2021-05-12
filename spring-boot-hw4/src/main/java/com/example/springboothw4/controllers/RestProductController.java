@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@Tag(name = "User API", description = "API to manipulate user resources")
-@RestController
-@RequestMapping("/api/v1/product")
+//@Tag(name = "User API", description = "API to manipulate user resources")
+//@RestController
+//@RequestMapping("/api/v1/product")
 public class RestProductController {
     private RestProductService service;
 
