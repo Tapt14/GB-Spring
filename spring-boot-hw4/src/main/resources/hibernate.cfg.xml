@@ -16,5 +16,6 @@
         <property name="hibernate.connection.isolation">4</property>
 
         <mapping class="com.example.springboothw4.entities.Product"/>
+        <mapping class="com.example.springboothw4.entities.User"/>
     </session-factory>
 </hibernate-configuration>
