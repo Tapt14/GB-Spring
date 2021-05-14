@@ -46,7 +46,9 @@ public class ProductService {
                                      Optional<BigDecimal> min,
                                      Optional<BigDecimal> max,
                                      Optional<Integer> page,
-                                     Optional<Integer> size) {
+                                     Optional<Integer> size,
+                                     Optional<String> sortField,
+                                     Optional<String> sortOrder) {
 
         Specification<Product> specification = Specification.where(null);
         if (nameFilter.isPresent()) {
